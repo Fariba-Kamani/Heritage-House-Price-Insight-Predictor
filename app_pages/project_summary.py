@@ -1,6 +1,6 @@
 import streamlit as st
 
-def page_summary_body():
+def project_summary_body():
 
     st.write("### Heritage Housing - Project Summary")
 
