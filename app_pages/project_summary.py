@@ -35,3 +35,5 @@ def project_summary_body():
         f" sale prices from her 4 inherited houses, and any"
         f" other houses in Ames, Iowa."
         )
+    
+project_summary_body()
