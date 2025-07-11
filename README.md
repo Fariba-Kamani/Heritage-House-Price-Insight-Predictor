@@ -212,4 +212,22 @@ To eliminate this ambiguity, we simply reset the index after concatenation:
 dfAux = pd.concat([df1, df2], axis=0).reset_index(drop=True)
 This ensures that the combined DataFrame has a clean, unique index, which is safe for downstream plotting operations in Seaborn.
 
+Issue:
+While running the app, the following error occurred:
+
+StreamlitSetPageConfigMustBeFirstCommandError:
+set_page_config() can only be called once per app page, and must be called as the first Streamlit command in your script.
+
+This happened because st.set_page_config() was placed inside the __init__() method of the MultiPage class (multipage.py), which is executed after other Streamlit commands had already run — violating Streamlit’s requirement that set_page_config() must be the first Streamlit-related command executed.
+
+Fix:
+To resolve this:
+
+st.set_page_config() was moved to the top of app.py, before any other Streamlit commands or imports that might use Streamlit.
+
+import streamlit as st
+st.set_page_config(page_title="House Price Estimator", page_icon="🏘️", layout="centered")
+
+The call to st.set_page_config() was removed from multipage.py to prevent multiple or late calls.
+
 
