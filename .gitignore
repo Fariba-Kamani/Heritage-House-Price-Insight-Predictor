@@ -1,11 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Environment files
+.env
+.env.py
+.venv/
+venv/
+env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Cloudinary credentials or API keys
+cloudinary_python.txt
+kaggle.json
 core.Microsoft*
 core.mongo*
 core.python*
-env.py
-__pycache__/
-*.py[cod]
+
+# Node.js (if not used, can be kept)
 node_modules/
+
+# GitHub workflows
 .github/
-cloudinary_python.txt
-kaggle.json
-.venv/
