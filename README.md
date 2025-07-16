@@ -1,42 +1,29 @@
-# ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# House Price Predictor - A Predictive Regression Model for Predicting the Sale Price of the Houses In Ames, Iowa
 
-## Template Instructions
+[House Price Predictor](https://house-price-predictor-3b59c8aa4c1c.herokuapp.com/)
 
-Welcome,
+## Table of Contents
 
-This is the Code Institute student template for the Heritage Housing project option in Predictive Analytics. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions. Click the `Use this template` button above to get started.
+- [Project Setup](#project-setup)
+- [Dataset Content](#dataset-content)
+- [Business Requirements](#business-requirements)
+- [Hypothesis](#hypothesis-and-how-to-validate)
+- [Mapping Business Requirements to Data Visualisation and ML Tasks](#the-rationale-to-map-the-business-requirements-to-the-data-visualizations-and-ml-tasks)
+- [ML Business Case](#ml-business-case)
+- [Epics and User Stories](#epics-and-user-stories)
+- [Dashboard Design](#dashboard-design)
+- [Technologies Used](#technologies-used)
+- [Testing](#testing)
+- [Unfixed Bugs](#unfixed-bugs)
+- [Deployment](#deployment)
+- [Credits](#credits)
+- [Acknowledgements](#acknowledgements)
 
-You can safely delete the Template Instructions section of this README.md file,  and modify the remaining paragraphs for your own project. Please do read the Template Instructions at least once, though! It contains some important information about the IDE and the extensions we use.
+## Project Setup
 
-## How to use this repo
+This project was built using the official [Code Institute Heritage Housing project template](https://github.com/Code-Institute-Solutions/milestone-project-heritage-housing-issues). The template provided a pre-configured development environment, including key tools such as Jupyter Notebooks, a virtual Python environment, and common data science libraries. I used it as a foundation to structure my project, manage dependencies, and streamline development in Codespaces. All template placeholder content has been removed or adapted to reflect the final implementation of my predictive analytics solution.
 
-1. Use this template to create your GitHub project repo
-
-2. In your new repo click on the green Code button
-
-3. Then, from the Codespaces tab, click Create codespace on main.
-
-5. Wait for the workspace to open. This can take a few minutes.
-
-6. Open a new terminal and `pip3 install -r requirements.txt`
-
-7. Open the jupyter_notebooks directory and click on the notebook you want to open.
-
-8. Click the kernel button and choose Python Environments.
-
-Note that the kernel says Python 3.12.1 as it inherits from the workspace so it will be Python-3.12.1 as installed by Codespaces. To confirm this you can use `! python --version` in a notebook code cell.
-
-## Cloud IDE Reminders
-
-To log into the Heroku toolbelt CLI:
-
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In your Cloud IDE, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
-
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with *Regenerate API Key*.
+[Back to top](#table-of-contents)
 
 ## Dataset Content
 
@@ -70,6 +57,8 @@ You can now use the `heroku` CLI program - try running `heroku apps` to confirm 
 |YearRemodAdd|Remodel date (same as construction date if no remodelling or additions)|1950 - 2010|
 |SalePrice|Sale Price|34900 - 755000|
 
+[Back to top](#table-of-contents)
+
 ## Project Terms & Jargon
 
 - **Client**: The fictional individual (Lydia Doe) who inherited four houses and seeks pricing insights.
@@ -78,6 +67,7 @@ You can now use the `heroku` CLI program - try running `heroku apps` to confirm 
 - **Attribute (or Feature)**: A characteristic of a house, such as its size, number of bedrooms, or the quality of the kitchen.
 - **Prediction**: An estimate of a house’s sale price based on its attributes.
 
+[Back to top](#table-of-contents)
 
 ## Business Requirements
 
@@ -88,72 +78,473 @@ Although your friend has an excellent understanding of property prices in her ow
 * 1 - The client is interested in discovering how the house attributes correlate with the sale price. Therefore, the client expects data visualisations of the correlated variables against the sale price to show that.
 * 2 - The client is interested in predicting the house sale price from her four inherited houses and any other house in Ames, Iowa.
 
+[Back to top](#table-of-contents)
+
 ## Hypothesis and how to validate?
 
+As part of the exploratory data analysis (EDA) phase, several hypotheses were formed regarding the factors influencing house prices. These were validated using both statistical correlation analysis (Spearman and Pearson), visual insights from plots, and model-driven feature importance scores from tree-based regressors (ExtraTrees, Random Forest) and regularized linear models (Lasso, Ridge).
+
 * H1: Houses with greater total living area (GrLivArea) are more expensive.
-    * Validate: Plot a scatterplot `sns.scatterplot(x=df['GrLivArea'], y=df['SalePrice'])`
-                Calculate correlation `df[['GrLivArea', 'SalePrice']].corr()`
-                perform linear regression? ``from sklearn.linear_model import LinearRegression
-model = LinearRegression().fit(df[['GrLivArea']], df['SalePrice'])``
-Validation Success Criteria: Positive correlation coefficient (e.g., > 0.6).Scatterplot shows upward trend. Regression model gives reasonable R².
+
+  * Validate:
+
+    * **EDA Insight:** The distribution of GrLivArea is right-skewed, with most homes between 1000–2000 sq ft. Sale prices tend to increase with living area, especially below 4000 sq ft. Outliers beyond this range show more variance.
+
+    * **Correlation:** Strong positive correlation with SalePrice (Spearman: 0.70, Pearson: 0.708).
+
+    * **Model Insight:** Ranked among the top 5 most important features across multiple models.
+
+  * **Conclusion:** Strongly supported — larger living area is one of the most influential predictors of house price.
+
 * H2: Higher overall quality (OverallQual) is associated with higher sale prices.
-    * Validate using boxplot `sns.boxplot(x=df['OverallQual'], y=df['SalePrice'])`
-        Group means `df.groupby('OverallQual')['SalePrice'].mean().plot(kind='bar')`
-        Calculate correlation `df[['OverallQual', 'SalePrice']].corr()`
-Validation Success Criteria: Clear positive trend in boxplot and bar chart. Strong positive correlation (e.g., > 0.6). Statistically significant difference between quality levels.
+
+  * Validate: 
+
+    * **EDA Insight:** Most houses are rated 5–7 in quality. Sale price increases exponentially with quality rating, especially for homes rated 8 and above.
+
+    * **Correlation:** Highest correlation with SalePrice (Spearman: 0.809, Pearson: 0.790).
+
+    * **Model Insight:** Ranked as the top feature in the Extra Trees model and also prominent in Lasso/Ridge.
+
+  * **Conclusion:** Very strongly supported — overall quality is the most powerful predictor of sale price.
 * H3: Houses with a garage (GarageArea > 0) sell for higher prices than those without.
-    * Validate using Create a binary column: `df['HasGarage'] = df['GarageArea'] > 0`
-        Compare mean prices: `df.groupby('HasGarage')['SalePrice'].mean()`
-        Boxplot comparison: `sns.boxplot(x=df['HasGarage'], y=df['SalePrice'])`
-Validation Success Criteria: Houses with garages show higher mean SalePrice. Significant visual and statistical differences.
+
+  * Validate:
+
+    * **EDA Insight:** A positive relationship is seen between garage size and price, particularly in the 400–800 sq ft range. However, some high-priced houses lack garages, suggesting compensating factors.
+
+    * **Correlation:** Moderate correlation with SalePrice (Spearman: 0.64, Pearson: 0.62).
+
+    * **Model Insight:** Present but not dominant in model rankings.
+
+  * **Conclusion:** Partially supported — garage size contributes to price but is less predictive than living area or quality. Other features can offset the absence of a garage.
+
+
+[Back to top](#table-of-contents)
 
 ## The rationale to map the business requirements to the Data Visualisations and ML tasks
 
-* **Business Requirement 1:** Understand which attributes affect sale price.
-    * Mapped to: Exploratory data analysis (EDA) using visualisations such as correlation heatmaps, scatter plots, boxplots.
-    * Reason: These visualisations reveal patterns and relationships needed for insight and feature selection.
-* **Business Requirement 2:** Predict house sale price.
-    * Mapped to: Regression ML task using algorithms such as Random Forest, XGBoost, or Linear Regression.
-    * Reason: The model can generalise to unseen data and help the client price current and future properties.
+This project addresses two key business requirements defined by the client. Each requirement is mapped to specific data science tasks involving exploratory visual analysis and machine learning modeling:
+
+  * **Business Requirement 1:** Understand how house attributes correlate with sale price
+
+    **Mapped to:**
+
+      * Exploratory Data Analysis (EDA)
+
+      * Correlation analysis (Pearson & Spearman)
+
+      * Visualizations (scatter plots, histograms, boxplots)
+
+      * Predictive Power Score (PPS) matrix
+
+      * Distribution vs SalePrice plots for top features
+
+    **Rationale:**
+
+      * Visual and statistical tools helped identify key drivers of house prices, such as OverallQual, GrLivArea, and GarageArea.
+
+      * Spearman and Pearson correlations quantified the strength of relationships between each feature and the target.
+
+      * The PPS matrix offered additional insight into potential non-linear associations.
+
+      * These findings supported the formation and validation of hypotheses and guided the choice of features for model training.
+  
+  * **Business Requirement 2:** Predict house sale prices
+
+    **Mapped to:**
+
+      * Machine Learning Regression Task
+
+      * Model training using:
+
+        ExtraTreesRegressor (selected as the final model)
+
+        Lasso and Ridge Regression (to explore feature importance)
+
+        RandomForestRegressor
+
+      * Evaluation using MAE, RMSE, and R² metrics
+
+      * Streamlit app for interactive prediction
+
+    **Rationale:**
+
+      * A broad model search was initially performed using multiple regression algorithms.
+
+      * The top-performing models — ExtraTrees, Random Forest, and Lasso/Ridge — were further tuned and analyzed.
+
+      * ExtraTrees was selected as the final model for its strong predictive performance and robustness.
+
+      * Lasso and Ridge were valuable for identifying the most informative features.
+
+      * The deployed Streamlit app enables the client to estimate sale prices by entering property details, including those of the inherited homes. 
+
+[Back to top](#table-of-contents)
 
 ## ML Business Case
 
-* In the previous bullet, you potentially visualised an ML task to answer a business requirement. You should frame the business case using the method we covered in the course.
-* **Goal:** Predict `SalePrice` (target variable) based on house features (independent variables).
-* **Features:** Selected based on correlation with `SalePrice`, data completeness, and domain relevance.
-* **Learning Method:** Supervised learning, regression.
-* **Model Output:** Predicted sale price as a continuous numeric value.
-* **Success Metric:** R² score ≥ 0.85 on test set, and low MAE/MSE.
-* **Business Value:** Enables informed decision-making when pricing inherited or future properties.
+**Goal**
 
+The goal of this machine learning task is to predict the sale price (SalePrice) of a house in Ames, Iowa, based on its physical and temporal characteristics. This directly supports the client's second business requirement: determining the combined and individual value of four inherited houses and enabling future real-time predictions for any similar property.
+
+**Problem Framing**
+
+  * ML Task Type: Supervised regression
+
+  * Target Variable: SalePrice (continuous numeric value)
+
+  * Features: House attributes (e.g., size, quality, year built) selected based on data quality, correlation with the target, and domain relevance
+
+  * Training Data: A public dataset with ~1,500 records of residential properties in Ames, Iowa
+
+**Model Output**
+
+Predicts the expected sale price for:
+
+  * Each of the four inherited houses (with known features)
+
+  * Any other house in Ames with similar attributes
+
+  * Enables the client to sum the total value of inherited properties
+
+  * Powers a user-facing dashboard that supports live prediction with custom inputs
+
+**Success Criteria**
+
+  * Primary metric: R² score ≥ 0.75 on both train and test sets
+
+  * Secondary metrics: Low Mean Absolute Error (MAE) and Mean Squared Error (MSE)
+
+**Business Value**
+
+  * Replaces guesswork with data-driven price estimates, avoiding reliance on real estate knowledge from other regions
+
+  * Helps the client maximize profit from selling inherited houses
+
+  * Empowers the client to assess future property opportunities using the same prediction tool
+
+  * Delivers insights on which house features most influence sale price through data visualizations and correlation analysis
+
+
+[Back to top](#table-of-contents)
+
+## Epics and User Stories
+* The project was split into 5 Epics based upon the Data Visualisation and Machine Learning tasks and within each of these, user stories were set out to enable an agile methodology.
+
+### Epic - Information Gathering and Data Collection
+  * **User Story** - As a data practitioner, I want to load the Ames Housing dataset from a reliable source, so that I can begin the analysis with a complete dataset.
+
+    * Acceptance Criteria:
+
+      1 - Dataset is successfully loaded into a Pandas DataFrame.
+
+      2 - No file errors or loading issues.
+
+  * **User Story** - As a data practitioner, I want to understand the structure and schema of the dataset, so that I can identify variable types and spot any immediate issues.
+
+    * Acceptance Criteria:
+
+      1- Column names, data types, and unique values are displayed.
+
+      2- Initial inspection reveals types of variables (numerical, categorical, datetime).
+
+  * **User Story** - As a data practitioner, I want to explore missing values and data types, so that I can determine appropriate cleaning strategies.
+
+    * Acceptance Criteria:
+
+      1- Percentage of missing values per column is calculated.
+
+      2- Strategy for handling missing values is documented.
+
+### Epic - Data Visualization, Cleaning, and Preparation
+
+* **User Story** - As a data analyst, I want to visualize the most correlated variables with SalePrice, so that I can meet the client’s requirement to understand how attributes relate to house prices.
+
+    * Acceptance Criteria:
+
+      1- Perform correlation and/or PPS study.
+
+      2- Top 10 correlated variables are visualized against SalePrice using appropriate plots.
+
+* **User Story** - As a data analyst, I want to clean missing values and format data types correctly, so that my dataset is ready for modeling. 
+
+    * Acceptance Criteria:
+
+      1- All missing values are handled (imputed, removed, or flagged).
+
+      2- Columns are in correct formats (e.g., numeric, categorical).
+    
+* **User Story** - As a data analyst, I want to transform skewed features and encode categorical variables, so that my data meets modeling assumptions.
+
+    * Acceptance Criteria:
+
+      1- Skewness is evaluated and corrected using transformations.
+
+      2- Categorical variables are encoded using suitable encoders.
+
+* **User Story** - As a data analyst, I want to identify the most important features for prediction, so that I can improve model accuracy and meet the dashboard requirements.
+
+    * Acceptance Criteria:
+
+      1- Feature selection is based on correlation or feature importance.
+
+      2- Documented rationale behind selected features.
+
+* **User Story** - As a data scientist, I want to split my dataset into train, validation, and test sets, so that I can evaluate models on unseen data.
+
+    * Acceptance Criteria:
+
+      1- Split ratios and random seed are defined.
+
+      2- Train/test/validation subsets maintain integrity.
+
+### Epic - Model Training, Optimization and Validation
+
+* **User Story** - As a data scientist, I want to train baseline regression models, so that I can choose the most appropriate approach to predict house prices.
+
+    * Acceptance Criteria:
+
+      1- Multiple regression models (e.g., Linear, RandomForest) are trained.
+
+      2- Initial evaluation metrics are calculated and compared.
+
+* **User Story** - As a data scientist, I want to optimize model hyperparameters using cross-validation, so that I can maximize prediction accuracy.
+
+    * Acceptance Criteria:
+
+      1- Hyperparameter optimization is performed.
+
+      2- R2 ≥ 0.75 is achieved on both train and test sets.
+
+* **User Story** - As a data scientist, I want to validate the model’s performance and interpret metrics, so that I can deliver reliable results.
+
+    * Acceptance Criteria:
+
+      1- R2, RMSE, and MAE are reported.
+
+      2- Overfitting or underfitting is addressed.
+
+### Epic - Dashboard Planning, Designing, and Development
+
+* **User Story** - As a dashboard developer, I want to design a dashboard structure that meets the client’s requirements, so that all requested features are implemented.
+
+    * Acceptance Criteria:
+
+      1- Includes a project summary, correlation insights, prediction page for the 4 houses, custom input page, and technical summary.
+
+* **User Story** - As a dashboard developer, I want to visualize the top features affecting SalePrice, so that Lydia understands the most important variables.
+
+    * Acceptance Criteria:
+
+      1- Visuals include bar plots and importance scores.
+
+      2- Key insights labeled clearly.
+
+* **User Story** - As a dashboard developer, I want to create a page where users can enter custom house attributes, so they can get real-time sale price predictions.
+
+    * Acceptance Criteria:
+
+      1- Interactive widgets allow users to input house features.
+
+      2- Predicted price and total for 4 inherited houses are displayed.
+
+* **User Story** - As a dashboard developer, I want to include a technical page showing model performance and pipeline steps, so that advanced users understand the modeling logic.
+
+    * Acceptance Criteria:
+
+      1- Display model pipeline, steps, and metrics.
+
+      2- Optional: visual pipeline flow.
+
+* **User Story** - As a user of the dashboard, I want to input the top five features affecting sale price, so that I can get a quick and reasonably accurate prediction for a property.
+
+    * Acceptance Criteria:
+
+      1- The page displays input widgets for the top 5 most important features (e.g., OverallQual, GrLivArea, etc.).
+
+      2- A "Predict Sale Price" button triggers a prediction using a trained ML pipeline.
+
+      3- The predicted price is displayed clearly in currency format.
+
+      4- The model uses statistical defaults for any missing features not shown to the user.
+
+* **User Story** - As a user of the dashboard, I want to be informed when some features were automatically filled, so that I understand the limits of prediction accuracy.
+
+    * Acceptance Criteria:
+
+      1- If any features are autofilled, a warning is displayed listing them.
+
+      2- The user is informed that more complete data will improve the prediction quality.
+
+      3- The full input used for the prediction (including autofills) is shown in a readable format.
+
+* **User Story** - As a user of the dashboard, I want to optionally provide additional house features, so that the prediction is more accurate when I have more data available.
+
+    * Acceptance Criteria:
+
+      1- A checkbox labeled "Provide more details (optional)" toggles additional feature inputs.
+
+      2- The additional inputs are based on the full set of features used during model training.
+
+      3- If the user does not provide values for some of these, the model uses statistical defaults (median/mode) for them.
+
+      4- Only missing (non-input) features are autofilled — the rest reflect user values.
+
+* **User Story** - As a client or stakeholder, I want to view the project hypotheses and their validation outcomes, so that I can understand whether the data supports the initial assumptions.
+
+    * Acceptance Criteria:
+
+      1- The page clearly states the original hypotheses made at the beginning of the project.
+
+      2- Each hypothesis is followed by a brief explanation of whether it was validated, refuted, or partially supported by the data.
+
+      3- The conclusions are derived from relevant exploratory data analysis or statistical validation steps.
+
+      4- The information is presented in a readable format using Streamlit components (e.g., st.success, st.warning, or st.info).
+
+      5- The page avoids technical jargon and communicates insights clearly to non-technical stakeholders.
+
+### Epic - Dashboard Deployment and Release
+
+* **User Story** - As a developer, I want to deploy the dashboard on a cloud platform, so that the client can access the solution easily.
+
+    * Acceptance Criteria:
+
+      1- Hosted on Heroku.
+
+      2- Functional and responsive.
+
+* **User Story** - As a developer, I want to test the deployed version for performance and usability, so that I can ensure it's reliable.
+
+    * Acceptance Criteria:
+
+      1- Loads in reasonable time.
+
+      2- Works on different screen sizes.
+
+* **User Story** - As a data practitioner, I want to provide a usage guide or README, so Lydia knows how to navigate the dashboard.
+
+    * Acceptance Criteria:
+
+      1- Includes screenshots and usage notes.
+
+      2- Describes limitations.
 
 ## Dashboard Design
 
-* List all dashboard pages and their content, either blocks of information or widgets, like buttons, checkboxes, images, or any other items that your dashboard library supports.
-* Eventually, during the project development, you may revisit your dashboard plan to update a given feature (for example, at the beginning of the project you were confident you would use a given plot to display an insight but eventually you needed to use another plot type)
+This Streamlit dashboard was designed to fulfill the business requirements defined at the beginning of the project. It offers a user-friendly, interactive experience that enables the client to explore insights and make predictions regarding house sale prices in Ames, Iowa.
 
-- **Home / Project Summary**
-  - Text summary of the project, user story, business needs
+**Navigation Structure**
 
-- **Data Visualisation**
-  - Correlation heatmap
-  - Scatter plots (e.g. GrLivArea vs SalePrice)
-  - Boxplots (e.g. Neighborhood vs SalePrice)
-  - Interpretation text under each plot
+The sidebar menu provides access to the following dashboard pages:
+
+  * **Project Summary**
+
+    * Brief introduction to the project.
+
+    * Explanation of project terms and domain-specific jargon.
+
+    * Links to full project documentation (e.g., the README).
+
+    * Clear outline of the business requirements.
+  
+  * **Correlation Insights**
+
+    Display of top correlated variables with SalePrice, based on:
+
+    * Pearson Correlation
+
+    * Spearman Correlation
+
+    * Predictive Power Score (PPS)
+
+    Visualizations:
+
+    * Heatmaps (threshold-masked for clarity)
+
+    * Parallel Categories Plot showing interactions between multiple features and SalePrice
+
+    * Descriptive interpretation of how these variables impact sale price.
+
+  * **Hypothesis**
+
+    Validation of three project hypotheses using:
+
+    * Correlation analysis
+
+    * Feature distributions
+
+    * Visual evidence
+  
+    Each hypothesis includes a conclusion section on whether it was supported or refuted by the data.
+  
+  * **Technical Summary**
+
+  * Chosen Model: ExtraTreesRegressor selected based on best cross-validation R² score and low standard deviation.
+
+  * Comparison of baseline models:
+
+    * Lasso: 0.8147
+
+    * Ridge: 0.7762
+
+    * Random Forest: 0.7853
+
+  * Pipeline Overview:
+
+    * Data preprocessing steps
+
+    * Feature selection
+
+    * Model training and evaluation
+
+  * Visual representation of the pipeline flow.
+
+  * Evaluation metrics:
+
+    * R² score on train and test sets
+
+    * MAE/MSE
+
+  * Summary of top 5 most important features contributing to predictions.
+
+  * **Inherited Houses Estimator**
+
+    * Table input of the 4 inherited houses’ attributes.
+
+    * Individual predicted sale prices for each house.
+
+    * Clear summary of the total estimated sale value for the inherited portfolio.
+  
+  * **House Price Predictions**
+
+    * Live prediction tool to estimate the sale price of any house in Ames, Iowa.
+
+    * Interactive input widgets for:
+
+      * Top 5 most important features
+
+      * Additional optional features (expandable)
+
+  * Warnings shown if default values are used for missing inputs.
+
+  * Output includes:
+
+    * Predicted sale price
+
+    * List of autofilled/defaulted features
+
+    * Overview table of submitted input values
 
 
-- **Predict Sale Price of Inherited Houses**
-  - Table of four inherited houses
-  - Display predicted prices with clear messages
-
-- **Live Prediction Tool**
-  - Input widgets: Bedrooms, LotArea, OverallQual, etc.
-  - Predict button
-  - Output section showing predicted price
+[Back to top](#table-of-contents)
 
 ## Unfixed Bugs
 
 * You will need to mention unfixed bugs and why they were not fixed. This section should include shortcomings of the frameworks or technologies used. Although time can be a big variable to consider, paucity of time and difficulty understanding implementation is not valid reason to leave bugs unfixed.
+
+[Back to top](#table-of-contents)
 
 ## Deployment
 
@@ -170,14 +561,20 @@ Validation Success Criteria: Houses with garages show higher mean SalePrice. Sig
 5. The deployment process should happen smoothly if all deployment files are fully functional. Click the button Open App on the top of the page to access your App.
 6. If the slug size is too large then add large files not required for the app to the .slugignore file.
 
+[Back to top](#table-of-contents)
+
 ## Main Data Analysis and Machine Learning Libraries
 
 * Here you should list the libraries you used in the project and provide example(s) of how you used these libraries.
+
+[Back to top](#table-of-contents)
 
 ## Credits
 
 * In this section, you need to reference where you got your content, media and extra help from. It is common practice to use code from other repositories and tutorials, however, it is important to be very specific about these sources to avoid plagiarism.
 * You can break the credits section up into Content and Media, depending on what you have included in your project.
+
+[Back to top](#table-of-contents)
 
 ### Content
 
@@ -185,15 +582,21 @@ Validation Success Criteria: Houses with garages show higher mean SalePrice. Sig
 * Instructions on how to implement form validation on the Sign-Up page was taken from [Specific YouTube Tutorial](https://www.youtube.com/)
 * The icons in the footer were taken from [Font Awesome](https://fontawesome.com/)
 
+[Back to top](#table-of-contents)
+
 ### Media
 
 * The photos used on the home and sign-up page are from This Open Source site
 * The images used for the gallery page were taken from this other open-source site
 
+[Back to top](#table-of-contents)
+
 ## Acknowledgements (optional)
 
 
 * In case you would like to thank the people that provided support through this project.
+
+[Back to top](#table-of-contents)
 
 ## Bugs:
  * Bug Explanation: ValueError: cannot reindex on an axis with duplicate labels
