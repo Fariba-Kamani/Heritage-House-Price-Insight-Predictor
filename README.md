@@ -544,11 +544,80 @@ The sidebar menu provides access to the following dashboard pages:
 
 ## Technologies Used
 
+The technologies used throughout the development are listed below:
+
 ### Languages
+
+* [Python](https://www.python.org/)
 
 ### Python Packages
 
+* **Data Manipulation and Analysis**
+
+  * [Pandas](https://pandas.pydata.org/docs/index.html) – Data structures and data analysis tools.
+  * [Numpy](https://numpy.org/doc/stable/index.html) – Support for large, multi-dimensional arrays and numerical operations.
+
+* **Data Visualization**
+
+  * [Matplotlib](https://matplotlib.org/) – 2D plotting library for creating static, animated, and interactive visualizations.
+  * [Seaborn](https://seaborn.pydata.org/) – Statistical data visualization built on top of Matplotlib.
+  * [Plotly](https://plotly.com/python/) – Interactive, browser-based visualizations for data analysis and dashboards.
+
+* **Machine Learning and Evaluation**
+
+  * [Scikit-learn](https://scikit-learn.org/stable/) – Machine learning algorithms, preprocessing, model selection, and evaluation tools.
+
+    * LinearRegression, Lasso, Ridge
+    * RandomForestRegressor, DecisionTreeRegressor
+    * GradientBoostingRegressor, AdaBoostRegressor, ExtraTreesRegressor
+    * GridSearchCV, train_test_split, SelectFromModel
+    * r2_score, mean_squared_error, mean_absolute_error
+    * Pipeline, StandardScaler
+  
+  * [XGBoost](https://xgboost.readthedocs.io/en/stable/) – Scalable and optimized gradient boosting machine learning library.
+
+* **Feature Engineering and Preprocessing**
+
+  * [Feature-engine](https://feature-engine.trainindata.com/en/latest/) – Tools for feature transformation, encoding, outlier handling, and selection.
+
+    * MeanMedianImputer, CategoricalImputer, ArbitraryNumberImputer
+    * OrdinalEncoder, OneHotEncoder
+    * PowerTransformer, BoxCoxTransformer, YeoJohnsonTransformer, LogTransformer
+    * Winsorizer
+    * ArbitraryDiscretiser, SmartCorrelatedSelection
+    * DropFeatures
+
+* **Statistical Analysis**
+
+  * [SciPy](https://docs.scipy.org/doc/scipy/) – Scientific and technical computing, including statistical functions (scipy.stats).
+
+* **Profiling and Reports**
+
+  * [YData Profiling](https://ydata.ai/docs/knowledge/reports/profiling/) – Automatically generates detailed exploratory data analysis (EDA) reports.
+
+* **Predictive Power Score**
+
+  * [ppscore](https://pypi.org/project/ppscore/) – Score to identify predictive power of features (handles linear and non-linear relationships).
+
+* **Web Application / Dashboard**
+
+  * [Streamlit](https://docs.streamlit.io/) – Fast way to build and share data apps in Python.
+
+* **Other Utilities**
+
+  * [Joblib](https://joblib.readthedocs.io/en/latest/) – Serialization and persistence for machine learning models and pipelines.
+  * [OS](https://docs.python.org/3/library/os.html) – Operating system interfaces.
+  * [Warnings](https://docs.python.org/3/library/warnings.html) – Used to handle warning messages.
+  * [Zipfile](https://docs.python.org/3/library/zipfile.html) – For extracting zipped files (used with Kaggle datasets).
+
+[Back to top](#table-of-contents)
+
 ### Other Technologies
+
+* [Git](https://git-scm.com/) - For version control
+* [GitHub](https://github.com/) - Code repository and GitHub projects was used as a Kanban board for Agile development
+* [Heroku](https://heroku.com) - For application deployment
+* [VSCode](https://code.visualstudio.com/) - IDE used for development
 
 ## Testing
 
@@ -563,8 +632,7 @@ The sidebar menu provides access to the following dashboard pages:
 
 | Feature | Action | Expected Result | Actual Result |
 | --- | --- | --- | --- |
-| Load Ames housing dataset  | Load Ames housing dataset in Data Collection Notebook | Dataset is successfully loaded into a Pandas DataFrame.
-No file errors or loading issues. | Pass |
+| Load Ames housing dataset  | Load Ames housing dataset in Data Collection Notebook | Dataset is successfully loaded into a Pandas DataFrame. No file errors or loading issues. | Pass |
 
 ---
 
@@ -740,10 +808,9 @@ No file errors or loading issues. | Pass |
 ### Validation
 
 All code in the app_pages and src directories was validated as conforming to PEP8 standards using CodeInstitute's PEP8 Linter.
-* Some files had warnings due to 'line too long', however these were related to long strings when writing to the dashboard.
-* These warnings were ignored as it did not effect the readability of any functions.
 
 ### Automated Unit Tests
+
 No automated unit tests have been carried out at this time.
 
 [Back to top](#table-of-contents)
