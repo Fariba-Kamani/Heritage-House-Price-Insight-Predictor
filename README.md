@@ -233,7 +233,7 @@ Predicts the expected sale price for:
 * The project was split into 5 Epics based upon the Data Visualisation and Machine Learning tasks and within each of these, user stories were set out to enable an agile methodology.
 
 ### Epic - Information Gathering and Data Collection
-  * **User Story** - As a data practitioner, I want to load the Ames Housing dataset from a reliable source, so that I can begin the analysis with a complete dataset.
+  * **User Story** - As a data practitioner, I want to load the Ames Housing dataset from a reliable source, so that I can begin the analysis with a complete dataset. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -241,7 +241,7 @@ Predicts the expected sale price for:
 
       2 - No file errors or loading issues.
 
-  * **User Story** - As a data practitioner, I want to understand the structure and schema of the dataset, so that I can identify variable types and spot any immediate issues.
+  * **User Story** - As a data practitioner, I want to understand the structure and schema of the dataset, so that I can identify variable types and spot any immediate issues. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -249,7 +249,7 @@ Predicts the expected sale price for:
 
       2- Initial inspection reveals types of variables (numerical, categorical, datetime).
 
-  * **User Story** - As a data practitioner, I want to explore missing values and data types, so that I can determine appropriate cleaning strategies.
+  * **User Story** - As a data practitioner, I want to explore missing values and data types, so that I can determine appropriate cleaning strategies. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -259,7 +259,7 @@ Predicts the expected sale price for:
 
 ### Epic - Data Visualization, Cleaning, and Preparation
 
-* **User Story** - As a data analyst, I want to visualize the most correlated variables with SalePrice, so that I can meet the client’s requirement to understand how attributes relate to house prices.
+* **User Story** - As a data analyst, I want to visualize the most correlated variables with SalePrice, so that I can meet the client’s requirement to understand how attributes relate to house prices. **Business Requirement 1**
 
     * Acceptance Criteria:
 
@@ -267,7 +267,7 @@ Predicts the expected sale price for:
 
       2- Top 10 correlated variables are visualized against SalePrice using appropriate plots.
 
-* **User Story** - As a data analyst, I want to clean missing values and format data types correctly, so that my dataset is ready for modeling. 
+* **User Story** - As a data analyst, I want to clean missing values and format data types correctly, so that my dataset is ready for modeling. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -275,7 +275,7 @@ Predicts the expected sale price for:
 
       2- Columns are in correct formats (e.g., numeric, categorical).
     
-* **User Story** - As a data analyst, I want to transform skewed features and encode categorical variables, so that my data meets modeling assumptions.
+* **User Story** - As a data analyst, I want to transform skewed features and encode categorical variables, so that my data meets modeling assumptions. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -283,7 +283,7 @@ Predicts the expected sale price for:
 
       2- Categorical variables are encoded using suitable encoders.
 
-* **User Story** - As a data analyst, I want to identify the most important features for prediction, so that I can improve model accuracy and meet the dashboard requirements.
+* **User Story** - As a data analyst, I want to identify the most important features for prediction, so that I can improve model accuracy and meet the dashboard requirements. **Business Requirement 1 & 2**
 
     * Acceptance Criteria:
 
@@ -291,7 +291,7 @@ Predicts the expected sale price for:
 
       2- Documented rationale behind selected features.
 
-* **User Story** - As a data scientist, I want to split my dataset into train, validation, and test sets, so that I can evaluate models on unseen data.
+* **User Story** - As a data scientist, I want to split my dataset into train, validation, and test sets, so that I can evaluate models on unseen data. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -301,7 +301,7 @@ Predicts the expected sale price for:
 
 ### Epic - Model Training, Optimization and Validation
 
-* **User Story** - As a data scientist, I want to train baseline regression models, so that I can choose the most appropriate approach to predict house prices.
+* **User Story** - As a data scientist, I want to train baseline regression models, so that I can choose the most appropriate approach to predict house prices. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -309,7 +309,7 @@ Predicts the expected sale price for:
 
       2- Initial evaluation metrics are calculated and compared.
 
-* **User Story** - As a data scientist, I want to optimize model hyperparameters using cross-validation, so that I can maximize prediction accuracy.
+* **User Story** - As a data scientist, I want to optimize model hyperparameters using cross-validation, so that I can maximize prediction accuracy. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -317,7 +317,7 @@ Predicts the expected sale price for:
 
       2- R2 ≥ 0.75 is achieved on both train and test sets.
 
-* **User Story** - As a data scientist, I want to validate the model’s performance and interpret metrics, so that I can deliver reliable results.
+* **User Story** - As a data scientist, I want to validate the model’s performance and interpret metrics, so that I can deliver reliable results. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -327,13 +327,13 @@ Predicts the expected sale price for:
 
 ### Epic - Dashboard Planning, Designing, and Development
 
-* **User Story** - As a dashboard developer, I want to design a dashboard structure that meets the client’s requirements, so that all requested features are implemented.
+* **User Story** - As a dashboard developer, I want to design a dashboard structure that meets the client’s requirements, so that all requested features are implemented. **Business Requirement 1 & 2**
 
     * Acceptance Criteria:
 
       1- Includes a project summary, correlation insights, prediction page for the 4 houses, custom input page, and technical summary.
 
-* **User Story** - As a dashboard developer, I want to visualize the top features affecting SalePrice, so that Lydia understands the most important variables.
+* **User Story** - As a dashboard developer, I want to visualize the top features affecting SalePrice, so that Lydia understands the most important variables. **Business Requirement 1**
 
     * Acceptance Criteria:
 
@@ -341,7 +341,7 @@ Predicts the expected sale price for:
 
       2- Key insights labeled clearly.
 
-* **User Story** - As a dashboard developer, I want to create a page where users can enter custom house attributes, so they can get real-time sale price predictions.
+* **User Story** - As a dashboard developer, I want to create a page where users can enter custom house attributes, so they can get real-time sale price predictions. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -349,7 +349,7 @@ Predicts the expected sale price for:
 
       2- Predicted price and total for 4 inherited houses are displayed.
 
-* **User Story** - As a dashboard developer, I want to include a technical page showing model performance and pipeline steps, so that advanced users understand the modeling logic.
+* **User Story** - As a dashboard developer, I want to include a technical page showing model performance and pipeline steps, so that advanced users understand the modeling logic. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -357,7 +357,7 @@ Predicts the expected sale price for:
 
       2- Optional: visual pipeline flow.
 
-* **User Story** - As a user of the dashboard, I want to input the top five features affecting sale price, so that I can get a quick and reasonably accurate prediction for a property.
+* **User Story** - As a user of the dashboard, I want to input the top five features affecting sale price, so that I can get a quick and reasonably accurate prediction for a property. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -369,7 +369,7 @@ Predicts the expected sale price for:
 
       4- The model uses statistical defaults for any missing features not shown to the user.
 
-* **User Story** - As a user of the dashboard, I want to be informed when some features were automatically filled, so that I understand the limits of prediction accuracy.
+* **User Story** - As a user of the dashboard, I want to be informed when some features were automatically filled, so that I understand the limits of prediction accuracy. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -379,7 +379,7 @@ Predicts the expected sale price for:
 
       3- The full input used for the prediction (including autofills) is shown in a readable format.
 
-* **User Story** - As a user of the dashboard, I want to optionally provide additional house features, so that the prediction is more accurate when I have more data available.
+* **User Story** - As a user of the dashboard, I want to optionally provide additional house features, so that the prediction is more accurate when I have more data available. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -391,7 +391,7 @@ Predicts the expected sale price for:
 
       4- Only missing (non-input) features are autofilled — the rest reflect user values.
 
-* **User Story** - As a client or stakeholder, I want to view the project hypotheses and their validation outcomes, so that I can understand whether the data supports the initial assumptions.
+* **User Story** - As a client or stakeholder, I want to view the project hypotheses and their validation outcomes, so that I can understand whether the data supports the initial assumptions. **Business Requirement 1**
 
     * Acceptance Criteria:
 
@@ -407,7 +407,7 @@ Predicts the expected sale price for:
 
 ### Epic - Dashboard Deployment and Release
 
-* **User Story** - As a developer, I want to deploy the dashboard on a cloud platform, so that the client can access the solution easily.
+* **User Story** - As a developer, I want to deploy the dashboard on a cloud platform, so that the client can access the solution easily. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -415,7 +415,7 @@ Predicts the expected sale price for:
 
       2- Functional and responsive.
 
-* **User Story** - As a developer, I want to test the deployed version for performance and usability, so that I can ensure it's reliable.
+* **User Story** - As a developer, I want to test the deployed version for performance and usability, so that I can ensure it's reliable. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -423,13 +423,15 @@ Predicts the expected sale price for:
 
       2- Works on different screen sizes.
 
-* **User Story** - As a data practitioner, I want to provide a usage guide or README, so Lydia knows how to navigate the dashboard.
+* **User Story** - As a data practitioner, I want to provide a usage guide or README, so Lydia knows how to navigate the dashboard. **Business Requirement 1 & 2**
 
     * Acceptance Criteria:
 
       1- Includes screenshots and usage notes.
 
       2- Describes limitations.
+
+[Back to top](#table-of-contents)
 
 ## Dashboard Design
 
@@ -467,7 +469,7 @@ The sidebar menu provides access to the following dashboard pages:
 
     * Descriptive interpretation of how these variables impact sale price.
 
-  * **Hypothesis**
+  * **Hypotheses**
 
     Validation of three project hypotheses using:
 
@@ -540,9 +542,217 @@ The sidebar menu provides access to the following dashboard pages:
 
 [Back to top](#table-of-contents)
 
+## Technologies Used
+
+### Languages
+
+### Python Packages
+
+### Other Technologies
+
+## Testing
+
+### Manual Testing
+
+#### User Story Testing
+
+* Dashboard was manually tested using user stories as a basis for determining success.
+* Jupyter notebooks were reliant on consecutive functions being successful so manual testing against user stories was deemed irrelevant.
+
+*As a data practitioner, I want to load the Ames Housing dataset from a reliable source, so that I can begin the analysis with a complete dataset.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Load Ames housing dataset  | Load Ames housing dataset in Data Collection Notebook | Dataset is successfully loaded into a Pandas DataFrame.
+No file errors or loading issues. | Pass |
+
+---
+
+*As a data practitioner, I want to understand the structure and schema of the dataset, so that I can identify variable types and spot any immediate issues.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Dataset structure and schema | understand the structure and schema of the dataset | Column names, data types, and unique values are displayed. Data Types are identified (Data Collection Notebook) | Pass |
+
+---
+
+*As a data practitioner, I want to explore missing values and data types, so that I can determine appropriate cleaning strategies.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| explore missing values and data types | Load dataset into a DataFrame. Use df.info() and df.isnull().mean()*100 to inspect data types and missing values. | Percentage of missing values per column is calculated. Strategy for handling missing values is documented. | Pass |
+
+---
+
+*As a data analyst, I want to visualize the most correlated variables with SalePrice, so that I can meet the client’s requirement to understand how attributes relate to house prices.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Visualize most correlated features | Run correlation analysis (.corr() and ppscore.matrix()), then plot top correlated variables using scatter plots, boxplots, and heatmaps. | Perform correlation and PPS study. Top correlated variables are visualized against SalePrice using appropriate plots. | Pass |
+
+---
+
+*As a data analyst, I want to clean missing values and format data types correctly, so that my dataset is ready for modeling*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Handle missing values & fix data types | Apply appropriate imputation strategies (mean/median/mode), drop unneeded columns, convert types. | All missing values are handled (imputed, dropped, or flagged). Columns are in correct formats. | Pass |
+
+---
+
+*As a data analyst, I want to transform skewed features and encode categorical variables, so that my data meets modeling assumptions.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Transform skewed features and encode categoricals | Evaluate skewness with histograms/stats; apply Box-Cox, Yeo-Johnson, or log transforms. Use Ordinal or OneHotEncoder where appropriate. | Skewness is evaluated and corrected using transformations. Categorical variables are encoded using suitable encoders. | Pass |
+
+---
+
+*As a data analyst, I want to identify the most important features for prediction, so that I can improve model accuracy and meet the dashboard requirements.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Identify top predictive features | Use correlation matrix, PPS, and model-based feature importance (e.g., ExtraTrees). Document selection criteria. | Feature selection is based on correlation or feature importance. Documented rationale behind selected features. | Pass |
+
+---
+
+*As a data scientist, I want to split my dataset into train, and test sets, so that I can evaluate models on unseen data.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Train/test split | Use train_test_split() from sklearn.model_selection with a defined test size and random seed. Validate class distribution and row count. | Split ratios and random seed are defined. Train/test subsets maintain integrity. | Pass |
+
+---
+
+*As a data scientist, I want to train baseline regression models, so that I can choose the most appropriate approach to predict house prices.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Train baseline models | Implement and train multiple regressors (e.g., LinearRegression, RandomForestRegressor). Evaluate using cross-validation and record metrics. |  Multiple regression models (e.g., Linear, RandomForest) are trained. Initial evaluation metrics are calculated and compared. | Pass |
+
+---
+
+*As a data scientist, I want to optimize model hyperparameters using cross-validation, so that I can maximize prediction accuracy.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Hyperparameter optimization | Use GridSearchCV to tune model parameters. Evaluate best model on train/test sets. | Hyperparameter optimization is performed. R2 ≥ 0.75 is achieved on both train and test sets. | Pass |
+
+---
+
+*As a data scientist, I want to validate the model’s performance and interpret metrics, so that I can deliver reliable results.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Model evaluation | Evaluate trained model using R², RMSE, and MAE on both train and test sets. | R², RMSE, and MAE are reported. Overfitting or underfitting is addressed. | Pass |
+
+---
+
+*As a dashboard developer, I want to design a dashboard structure that meets the client’s requirements, so that all requested features are implemented.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Dashboard navigation | Navigate through the Streamlit sidebar and verify the presence of all required pages | Pages included: Project Summary, Correlation Insights, Hypotheses, Technical Summary, Inherited Houses Estimator, House Price Predictions | Pass |
+
+---
+
+*As a dashboard developer, I want to visualize the top features affecting SalePrice, so that Lydia understands the most important variables.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Feature importance plot | Navigate to the Technical Summary page and review the bar chart for top 5 features | Visuals include bar plots of feature importances. Key insights are labeled clearly with readable titles and axes. | Pass |
+
+---
+
+*As a dashboard developer, I want to create a page where users can enter custom house attributes, so they can get real-time sale price predictions.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| House Price Predictions (individual) | Go to the House Price Predictions page. Input custom house features using the form and submit. | Interactive widgets accept inputs for top features. A predicted sale price is shown for the custom house. | Pass |
+| Inherited Houses Estimator (4 inherited homes) | Go to the Inherited Houses Estimator page. Review the displayed predictions for the four inherited houses. | Predicted sale prices for each of the 4 houses are shown. A total sale price is also displayed at the bottom. | Pass |
+
+---
+
+*As a dashboard developer, I want to include a technical page showing model performance and pipeline steps, so that advanced users understand the modeling logic.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Technical Summary Page | Go to the Technical Summary page. Review the model pipeline, steps, and evaluation metrics. | The page displays a summary of the preprocessing and modeling pipeline, step-by-step descriptions, model performance metrics (e.g. MAE, R²), and a visual representation of the pipeline flow. | Pass |
+
+---
+
+*As a user of the dashboard, I want to input the top five features affecting sale price, so that I can get a quick and reasonably accurate prediction for a property.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Top 5 Feature Input & Prediction | Go to the House Price Predictions page. Input values for the top 5 most important features and click "Predict Sale Price." | The page displays input widgets for the top 5 most important features (e.g., OverallQual, GrLivArea, etc.). A "Predict Sale Price" button triggers a prediction using a trained ML pipeline. The predicted price is shown clearly in currency format. The model fills in all other features with statistical defaults from the training data (e.g., median or mode). | Pass |
+
+---
+
+*As a user of the dashboard, I want to be informed when some features were automatically filled, so that I understand the limits of prediction accuracy.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Autofill Notification & Summary | On the House Price Predictions page, leave some optional fields blank and click "Predict Sale Price." | If any features were autofilled, a warning message is displayed listing those features. The user is clearly informed that filling more features may improve prediction accuracy. Below the prediction, the full feature input used in the model (including autofills) is shown in a readable table. | Pass |
+
+---
+
+*As a user of the dashboard, I want to optionally provide additional house features, so that the prediction is more accurate when I have more data available.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Optional Additional Feature Input | Go to the House Price Predictions page. Click the checkbox labeled "Provide more details (optional)" to reveal more input fields. Fill in some (but not all) of the additional fields, then click "Predict Sale Price." | A checkbox labeled "Provide more details (optional)" toggles visibility of additional input fields. These inputs are based on the full set of features used in model training. Any missing (non-input) fields are automatically filled using statistical defaults (median or mode). The prediction reflects both user-provided and autofilled values, and only the missing fields are noted in the autofill warning. | Pass |
+
+---
+
+*As a client or stakeholder, I want to view the project hypotheses and their validation outcomes, so that I can understand whether the data supports the initial assumptions.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Hypothesis Validation Page | Go to the Hypotheses page in the dashboard. Review the listed hypotheses and their outcomes. | The page clearly presents the original project hypotheses made during the initial planning phase. Each hypothesis is followed by a concise explanation of whether it was validated, refuted, or partially supported by the data. Each outcome is supported by relevant EDA or statistical checks. The insights are communicated using Streamlit components (e.g., st.success, st.warning, st.info) in plain language, accessible to non-technical users. | Pass |
+
+---
+
+*As a developer, I want to deploy the dashboard on a cloud platform, so that the client can access the solution easily.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Cloud Deployment | Open the dashboard via the Heroku app link on a browser. Test page navigation and interactivity on desktop and mobile. | The dashboard is successfully hosted on Heroku, loads without errors, and is functional and responsive across devices. All pages (e.g., project summary, predictions, hypotheses) are accessible. | Pass |
+
+---
+
+*As a developer, I want to test the deployed version for performance and usability, so that I can ensure it's reliable.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Performance & Usability Test | Open the deployed dashboard on Heroku from various devices (desktop, tablet, mobile). Test page loads, navigation, and responsiveness. | The dashboard loads in a reasonable time (within a few seconds), responds smoothly to user interactions, and adapts correctly to different screen sizes without layout or content issues. | Pass |
+
+---
+
+*As a data practitioner, I want to provide a usage guide or README, so Lydia knows how to navigate the dashboard.*
+
+| Feature | Action | Expected Result | Actual Result |
+| --- | --- | --- | --- |
+| Dashboard Usage Guide | Open the provided README file or usage instructions section on the deployed dashboard | The README includes clear usage instructions, screenshots of each main page, a description of each feature, and notes on any known limitations or assumptions. The guide is easy to follow for non-technical users like Lydia. | Pass |
+
+[Back to top](#table-of-contents)
+
+### Validation
+
+All code in the app_pages and src directories was validated as conforming to PEP8 standards using CodeInstitute's PEP8 Linter.
+* Some files had warnings due to 'line too long', however these were related to long strings when writing to the dashboard.
+* These warnings were ignored as it did not effect the readability of any functions.
+
+### Automated Unit Tests
+No automated unit tests have been carried out at this time.
+
+[Back to top](#table-of-contents)
+
+## Issues
+
 ## Unfixed Bugs
 
-* You will need to mention unfixed bugs and why they were not fixed. This section should include shortcomings of the frameworks or technologies used. Although time can be a big variable to consider, paucity of time and difficulty understanding implementation is not valid reason to leave bugs unfixed.
+* At the time of writing, there are no unfixed bugs within the project.
 
 [Back to top](#table-of-contents)
 
@@ -551,6 +761,29 @@ The sidebar menu provides access to the following dashboard pages:
 ### Heroku
 
 * The App live link is: <https://YOUR_APP_NAME.herokuapp.com/>
+The project was deployed to Heroku using the following steps:
+
+1. Within your working directory, ensure there is a setup.sh file containing the following:
+```
+mkdir -p ~/.streamlit/
+echo "\
+[server]\n\
+headless = true\n\
+port = $PORT\n\
+enableCORS = false\n\
+\n\
+" > ~/.streamlit/config.toml
+```
+2. Within your working directory, ensure there is a runtime.txt file containing a [Heroku-20](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack supported version of Python.
+```
+python-3.10.12
+```
+3. Within your working directory, ensure there is a Procfile file containing the following:
+```
+web: sh setup.sh && streamlit run app.py
+```
+4. Ensure your requirements.txt file contains all the packages necessary to run the streamlit dashboard.
+5. Update your .gitignore and .slugignore files with any files/directories that you do not want uploading to GitHub or are unnecessary for deployment.
 * Set the .python-version Python version to a [Heroku-24](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack currently supported version.
 * The project was deployed to Heroku using the following steps.
 
@@ -560,6 +793,32 @@ The sidebar menu provides access to the following dashboard pages:
 4. Select the branch you want to deploy, then click Deploy Branch.
 5. The deployment process should happen smoothly if all deployment files are fully functional. Click the button Open App on the top of the page to access your App.
 6. If the slug size is too large then add large files not required for the app to the .slugignore file.
+
+[Back to top](#table-of-contents)
+
+## Forking and Cloning
+If you wish to fork or clone this repository, please follow the instructions below:
+
+### Forking
+1. In the top right of the main repository page, click the **Fork** button.
+2. Under **Owner**, select the desired owner from the dropdown menu.
+3. **OPTIONAL:** Change the default name of the repository in order to distinguish it.
+4. **OPTIONAL:** In the **Description** field, enter a description for the forked repository.
+5. Ensure the 'Copy the main branch only' checkbox is selected.
+6. Click the **Create fork** button.
+### Cloning
+1. On the main repository page, click the **Code** button.
+2. Copy the HTTPS URL from the resulting dropdown menu.
+3. In your IDE terminal, navigate to the directory you want the cloned repository to be created.
+4. In your IDE terminal, type ```git clone``` and paste the copied URL.
+5. Hit Enter to create the cloned repository.
+
+### Installing Requirements
+**WARNING:** The packages listed in the requirements.txt file are limited to those necessary for the deployment of the dashboard to Heroku, due to the limit on the slug size.
+
+In order to ensure all the correct dependencies are installed in your local environment, run the following command in the terminal:
+
+    pip install -r full-requirements.txt
 
 [Back to top](#table-of-contents)
 
