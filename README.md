@@ -625,8 +625,7 @@ The technologies used throughout the development are listed below:
 
 #### User Story Testing
 
-* Dashboard was manually tested using user stories as a basis for determining success.
-* Jupyter notebooks were reliant on consecutive functions being successful so manual testing against user stories was deemed irrelevant.
+* Dashboard and Jupyter notebooks were manually tested using user stories as a basis for determining success.
 
 *As a data practitioner, I want to load the Ames Housing dataset from a reliable source, so that I can begin the analysis with a complete dataset.*
 
@@ -807,7 +806,7 @@ The technologies used throughout the development are listed below:
 
 ### Validation
 
-All code in the app_pages and src directories was validated as conforming to PEP8 standards using CodeInstitute's PEP8 Linter.
+All code in the app_pages and src directories was validated as conforming to PEP8 standards using [Code Institute CI Python Linter](https://pep8ci.herokuapp.com/).
 
 ### Automated Unit Tests
 
@@ -816,6 +815,66 @@ No automated unit tests have been carried out at this time.
 [Back to top](#table-of-contents)
 
 ## Issues
+
+**Issue 1: Duplicate Index Labels Causing Reindexing Error in Seaborn**
+
+**Error Message:**
+
+`ValueError: cannot reindex on an axis with duplicate labels`
+
+**Context:**
+
+While comparing the distributions of original vs. cleaned categorical variables, we created two separate DataFrames:
+
+```
+df1 = pd.DataFrame({"Type": "Original", "Value": df_original[var]})
+df2 = pd.DataFrame({"Type": "Cleaned", "Value": df_cleaned[var]})
+dfAux = pd.concat([df1, df2], axis=0)
+
+```
+
+However, since both `df1` and `df2` originated from DataFrames with identical indices, `pd.concat()` preserved these indices, resulting in duplicate index labels.
+
+When this concatenated DataFrame (`dfAux`) was passed to `seaborn.countplot()`, Seaborn attempted to internally reindex the data. The presence of non-unique indices led to ambiguity during this reindexing process, triggering the `ValueError`.
+
+**Solution:**
+
+To prevent this issue, we reset the index after concatenation:
+
+```
+dfAux = pd.concat([df1, df2], axis=0).reset_index(drop=True)
+
+```
+
+This ensured the resulting DataFrame had a clean, unique index, allowing Seaborn to operate without ambiguity.
+
+---
+
+**Issue 2: `st.set_page_config()` Must Be Called First in Streamlit**
+
+**Error Message:**
+
+`StreamlitSetPageConfigMustBeFirstCommandError: set_page_config() can only be called once per app page, and must be called as the first Streamlit command in your script.`
+
+**Context:**
+
+During development, this error occurred because `st.set_page_config()` was placed within the `__init__()` method of the `MultiPage` class inside `multipage.py`. Since this class was instantiated after other Streamlit commands had already been executed, it violated Streamlit's requirement that `set_page_config()` must be the very first Streamlit command run in the script.
+
+**Solution:**
+
+To resolve this:
+
+1. The call to `st.set_page_config()` was moved to the very top of `app.py`, before any other Streamlit commands or imports:
+
+```
+import streamlit as st
+st.set_page_config(page_title="House Price Estimator", page_icon="🏘️", layout="centered")
+
+```
+
+2. The duplicate call inside `multipage.py` was removed to ensure `set_page_config()` is executed only once, and at the appropriate time.
+
+[Back to top](#table-of-contents)
 
 ## Unfixed Bugs
 
@@ -827,10 +886,21 @@ No automated unit tests have been carried out at this time.
 
 ### Heroku
 
-* The App live link is: <https://YOUR_APP_NAME.herokuapp.com/>
-The project was deployed to Heroku using the following steps:
 
-1. Within your working directory, ensure there is a setup.sh file containing the following:
+This project was deployed on Heroku to make the Streamlit dashboard publicly accessible.
+
+**Live App:** [House Price Predictor](https://house-price-predictor-3b59c8aa4c1c.herokuapp.com/)
+
+#### Steps to Deploy:
+
+To deploy this project to [Heroku](https://www.heroku.com/) using [GitHub](https://github.com/) integration, the following setup and configurations were implemented:
+
+1. Setup Deployment Files
+
+Ensure the following files exist in your project root:
+
+* `setup.sh` – Configures Streamlit server settings for Heroku:
+
 ```
 mkdir -p ~/.streamlit/
 echo "\
@@ -841,25 +911,49 @@ enableCORS = false\n\
 \n\
 " > ~/.streamlit/config.toml
 ```
-2. Within your working directory, ensure there is a runtime.txt file containing a [Heroku-20](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack supported version of Python.
-```
-python-3.10.12
-```
-3. Within your working directory, ensure there is a Procfile file containing the following:
+
+* `Procfile` – Defines the process Heroku should run:
+
 ```
 web: sh setup.sh && streamlit run app.py
 ```
-4. Ensure your requirements.txt file contains all the packages necessary to run the streamlit dashboard.
-5. Update your .gitignore and .slugignore files with any files/directories that you do not want uploading to GitHub or are unnecessary for deployment.
-* Set the .python-version Python version to a [Heroku-24](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack currently supported version.
-* The project was deployed to Heroku using the following steps.
 
-1. Log in to Heroku and create an App
-2. At the Deploy tab, select GitHub as the deployment method.
-3. Select your repository name and click Search. Once it is found, click Connect.
-4. Select the branch you want to deploy, then click Deploy Branch.
-5. The deployment process should happen smoothly if all deployment files are fully functional. Click the button Open App on the top of the page to access your App.
-6. If the slug size is too large then add large files not required for the app to the .slugignore file.
+* `runtime.txt` – Specifies the Python version for Heroku build:
+
+´´´
+python-3.10.12
+
+´´´
+
+* `requirements.txt` – Lists all Python packages required for the project.
+
+* `python-version` – Set to a Heroku-supported version (e.g., `3.10.12`) if required for development consistency.
+
+* `.gitignore` / `.slugignore` – Ensure large files or local-only files are excluded from Git pushes and deployment slugs to avoid size issues.
+
+2. Connect GitHub Repo to Heroku
+
+  * Log in to your Heroku dashboard.
+
+  * Create a new app and give it a unique name.
+
+  * Under the Deploy tab, choose GitHub as the deployment method.
+
+  * Connect to your GitHub repository.
+
+  * Select the desired branch and click Deploy Branch.
+
+  * Once deployment is successful, click "Open App" to launch it.
+
+**Troubleshooting:**
+
+* Slug too large?
+
+  Add unnecessary or development-only files (e.g., datasets, notebooks) to your `.slugignore` file.
+
+* App not launching?
+
+  Ensure `requirements.txt`, `Procfile`, and `setup.sh` are correctly formatted and present in the root directory.
 
 [Back to top](#table-of-contents)
 
@@ -867,96 +961,125 @@ web: sh setup.sh && streamlit run app.py
 If you wish to fork or clone this repository, please follow the instructions below:
 
 ### Forking
-1. In the top right of the main repository page, click the **Fork** button.
-2. Under **Owner**, select the desired owner from the dropdown menu.
-3. **OPTIONAL:** Change the default name of the repository in order to distinguish it.
-4. **OPTIONAL:** In the **Description** field, enter a description for the forked repository.
-5. Ensure the 'Copy the main branch only' checkbox is selected.
-6. Click the **Create fork** button.
+
+To create your own copy of this repository:
+
+1. Log in to [GitHub](https://github.com/).
+
+2. Navigate to the [Heritage House Price Insight Predictor repository](https://github.com/Fariba-Kamani/Heritage-House-Price-Insight-Predictor).
+
+3. Click the Fork button at the top-right corner.
+
+4. GitHub will create a copy of the repository under your own account.
+
+You can now clone your forked version to your local machine and begin working on it.
+
 ### Cloning
-1. On the main repository page, click the **Code** button.
-2. Copy the HTTPS URL from the resulting dropdown menu.
-3. In your IDE terminal, navigate to the directory you want the cloned repository to be created.
-4. In your IDE terminal, type ```git clone``` and paste the copied URL.
-5. Hit Enter to create the cloned repository.
+
+To clone this project to your local machine:
+
+1. Navigate to the GitHub repository (either the original or your forked version).
+
+2. Click the green `<> Code` button and copy the URL under the HTTPS tab.
+
+3. Open your terminal and navigate to the directory where you'd like to clone the project.
+
+4. Run the following command (replace `<your-username>` if cloning your own fork):
+
+```
+git clone https://github.com/<your-username>/Heritage-House-Price-Insight-Predictor.git
+
+```
+
+5. Navigate into the cloned project folder:
+
+```
+cd Heritage-House-Price-Insight-Predictor
+
+```
+
+**Optional tip:** If you're contributing to this project, it's good practice to create a virtual environment and install the requirements:
+
+```
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+
+```
 
 ### Installing Requirements
-**WARNING:** The packages listed in the requirements.txt file are limited to those necessary for the deployment of the dashboard to Heroku, due to the limit on the slug size.
+
+**Note:** The `requirements.txt` file only includes the minimum packages needed for deploying the dashboard to Heroku, due to Heroku's slug size limitations.
+
+To install all required dependencies for local development and full functionality, run the following command in your terminal:
 
 In order to ensure all the correct dependencies are installed in your local environment, run the following command in the terminal:
 
-    pip install -r full-requirements.txt
+```
+pip install -r full-requirements.txt
 
-[Back to top](#table-of-contents)
+```
 
-## Main Data Analysis and Machine Learning Libraries
+If you're only deploying the dashboard and want the lighter set of dependencies:
 
-* Here you should list the libraries you used in the project and provide example(s) of how you used these libraries.
+```
+pip install -r requirements.txt
+
+```
 
 [Back to top](#table-of-contents)
 
 ## Credits
 
-* In this section, you need to reference where you got your content, media and extra help from. It is common practice to use code from other repositories and tutorials, however, it is important to be very specific about these sources to avoid plagiarism.
-* You can break the credits section up into Content and Media, depending on what you have included in your project.
-
-[Back to top](#table-of-contents)
-
 ### Content
 
-* The text for the Home page was taken from Wikipedia Article A
-* Instructions on how to implement form validation on the Sign-Up page was taken from [Specific YouTube Tutorial](https://www.youtube.com/)
-* The icons in the footer were taken from [Font Awesome](https://fontawesome.com/)
+This project was built as part of the Code Institute's Predictive Analytics and Machine Learning module. It closely followed the structure and best practices outlined in the course content and walkthrough projects, including:
+
+The `Churnometer` and the `Streamlit Calculator` walkthrough projects – for notebook structure, data processing logic, and dashboard design inspiration.
+
+The Code Institute Machine Learning Project Template – used to set up the working directory and folder structure.
+
+Throughout the Jupyter notebooks, I have reused and adapted several custom functions and best practices introduced in Code Institute materials:
+
+* **EDA Correlation PPS Study Notebook**
+
+  `plot_categorical()` and `plot_numerical()` functions used to display feature distributions by target (SalePrice) were inspired by the `plot_categorical()` and `plot_numerical()` functions used in the churned_customer_study.ipynb from Churnometer.
+
+* **Data Cleaning Notebook**
+
+  `correlation analysis, and PPS` function to generate Pearson/Spearman and PPS heatmaps, and `assessing missing data levels` function were reused from Churnometer’s cleaning notebook.
+
+* **Feature Engineering Notebook**
+
+  Exploratory feature engineering function taught in Feature Engineering lessons was reused to study the effect of transformations such as `numerical`, `ordinal_encoder`, and `outlier_winsorizer`.
+
+  Used `SmartCorrelatedSelection()` from `feature_engine.selection`, introduced in the lessons, to remove multicollinear features.
+
+* **Modeling and Evaluation Notebook**
+
+  `Hyperparameter optimization` and `performance evaluation` functions were adapted from the churnometer-modeling_and_evaluation notebooks. 
+  Model documentation and `hyperparameter optimization` were supported by references to official Scikit-learn documentation: [ExtraTreesRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesRegressor.html), [RandomForestRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html), [Lasso Regression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html), [Ridge Regression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html).
+  These resources were particularly helpful in defining the model parameters for `GridSearchCV` and understanding the estimators' behavior for extensive search tuning.
+
+* **Dashboard**
+
+  The overall structure, use of `MultiPage` pattern, and sidebar navigation were based on the multi-page implementation in the `Churnometer Streamlit dashboard` and the `Streamlit Calculator` walkthrough.
+
+* **README**
+
+  This README structure follows Code Institute’s documentation standards and takes inspiration from, the sample README of [CVD Predictor](https://github.com/jfpaliga/CVD-predictor/blob/main/README.md) shared by my mentor, and my own previous README files created during the bootcamp.
+
+* **Additional Support**
+
+  ChatGPT (OpenAI) was used for guidance, debugging, and documentation refinement throughout the project.
+
 
 [Back to top](#table-of-contents)
 
-### Media
+## Acknowledgements
 
-* The photos used on the home and sign-up page are from This Open Source site
-* The images used for the gallery page were taken from this other open-source site
-
-[Back to top](#table-of-contents)
-
-## Acknowledgements (optional)
-
-
-* In case you would like to thank the people that provided support through this project.
+Thanks to my mentor Mo Shami for his feedback, encouragement, and help during the development of this project.
 
 [Back to top](#table-of-contents)
-
-## Bugs:
- * Bug Explanation: ValueError: cannot reindex on an axis with duplicate labels
-What Happened:
-While comparing the distributions of original vs. cleaned variables, we used the following logic to prepare the data for categorical bar plots:
-df1 = pd.DataFrame({"Type": "Original", "Value": df_original[var]})
-df2 = pd.DataFrame({"Type": "Cleaned", "Value": df_cleaned[var]})
-dfAux = pd.concat([df1, df2], axis=0)
-However, pandas.concat() by default preserves the original row indices. Since both df1 and df2 came from the same DataFrame (with identical indices), the resulting dfAux contained duplicate index labels.
-
-When passed to seaborn.countplot(), these duplicate indices led to:
-ValueError: cannot reindex on an axis with duplicate labels
-This is because Seaborn internally tries to align and scale the data, and non-unique index values cause ambiguity during reindexing operations.
-How We Fixed It
-To eliminate this ambiguity, we simply reset the index after concatenation:
-dfAux = pd.concat([df1, df2], axis=0).reset_index(drop=True)
-This ensures that the combined DataFrame has a clean, unique index, which is safe for downstream plotting operations in Seaborn.
-
-Issue:
-While running the app, the following error occurred:
-
-StreamlitSetPageConfigMustBeFirstCommandError:
-set_page_config() can only be called once per app page, and must be called as the first Streamlit command in your script.
-
-This happened because st.set_page_config() was placed inside the __init__() method of the MultiPage class (multipage.py), which is executed after other Streamlit commands had already run — violating Streamlit’s requirement that set_page_config() must be the first Streamlit-related command executed.
-
-Fix:
-To resolve this:
-
-st.set_page_config() was moved to the top of app.py, before any other Streamlit commands or imports that might use Streamlit.
-
-import streamlit as st
-st.set_page_config(page_title="House Price Estimator", page_icon="🏘️", layout="centered")
-
-The call to st.set_page_config() was removed from multipage.py to prevent multiple or late calls.
 
 
