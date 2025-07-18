@@ -1,19 +1,21 @@
-# House Price Predictor - A Predictive Regression Model for Predicting the Sale Price of the Houses In Ames, Iowa
-
+# House Price Predictor - A Regression-Based App to Estimate Home Sale Prices in Ames, Iowa
+![House Price Predictor](docs/plots/dashboard/dashboard_responsive.png)
 [House Price Predictor](https://house-price-predictor-3b59c8aa4c1c.herokuapp.com/)
 
 ## Table of Contents
 
 - [Project Setup](#project-setup)
 - [Dataset Content](#dataset-content)
+- [Key Terms and Concepts](#key-terms-and-concepts)
 - [Business Requirements](#business-requirements)
 - [Hypothesis](#hypothesis-and-how-to-validate)
-- [Mapping Business Requirements to Data Visualisation and ML Tasks](#the-rationale-to-map-the-business-requirements-to-the-data-visualizations-and-ml-tasks)
+- [Mapping Business Requirements to Data Visualisation and ML Tasks](#mapping-business-requirements-to-data-visualisation-and-ml-tasks)
 - [ML Business Case](#ml-business-case)
 - [Epics and User Stories](#epics-and-user-stories)
 - [Dashboard Design](#dashboard-design)
 - [Technologies Used](#technologies-used)
 - [Testing](#testing)
+- [Issues](#issues)
 - [Unfixed Bugs](#unfixed-bugs)
 - [Deployment](#deployment)
 - [Credits](#credits)
@@ -59,8 +61,7 @@ This project was built using the official [Code Institute Heritage Housing proje
 
 [Back to top](#table-of-contents)
 
-## Project Terms & Jargon
-
+## Key Terms and Concepts
 - **Client**: The fictional individual (Lydia Doe) who inherited four houses and seeks pricing insights.
 - **Property**: A house located in Ames, Iowa, included in the dataset.
 - **Sale Price**: The amount a house was sold for. This is what we aim to predict.
@@ -122,7 +123,7 @@ As part of the exploratory data analysis (EDA) phase, several hypotheses were fo
 
 [Back to top](#table-of-contents)
 
-## The rationale to map the business requirements to the Data Visualisations and ML tasks
+## Mapping Business Requirements to Data Visualisation and ML Tasks
 
 This project addresses two key business requirements defined by the client. Each requirement is mapped to specific data science tasks involving exploratory visual analysis and machine learning modeling:
 
@@ -233,7 +234,7 @@ Predicts the expected sale price for:
 * The project was split into 5 Epics based upon the Data Visualisation and Machine Learning tasks and within each of these, user stories were set out to enable an agile methodology.
 
 ### Epic - Information Gathering and Data Collection
-  * **User Story** - As a data practitioner, I want to load the Ames Housing dataset from a reliable source, so that I can begin the analysis with a complete dataset. **Business Requirement 2**
+  * **User Story** - As a data practitioner, I want to load the Ames Housing dataset from a reliable source, so that I can begin the analysis with a complete dataset. **Business Requirement 1 & 2**
 
     * Acceptance Criteria:
 
@@ -241,7 +242,7 @@ Predicts the expected sale price for:
 
       2 - No file errors or loading issues.
 
-  * **User Story** - As a data practitioner, I want to understand the structure and schema of the dataset, so that I can identify variable types and spot any immediate issues. **Business Requirement 2**
+  * **User Story** - As a data practitioner, I want to understand the structure and schema of the dataset, so that I can identify variable types and spot any immediate issues. **Business Requirement 1 & 2**
 
     * Acceptance Criteria:
 
@@ -265,7 +266,7 @@ Predicts the expected sale price for:
 
       1- Perform correlation and/or PPS study.
 
-      2- Top 10 correlated variables are visualized against SalePrice using appropriate plots.
+      2- Top correlated variables are visualized against SalePrice using appropriate plots.
 
 * **User Story** - As a data analyst, I want to clean missing values and format data types correctly, so that my dataset is ready for modeling. **Business Requirement 2**
 
@@ -283,7 +284,7 @@ Predicts the expected sale price for:
 
       2- Categorical variables are encoded using suitable encoders.
 
-* **User Story** - As a data analyst, I want to identify the most important features for prediction, so that I can improve model accuracy and meet the dashboard requirements. **Business Requirement 1 & 2**
+* **User Story** - As a data analyst, I want to identify the most important features for prediction, so that I can improve model accuracy and meet the dashboard requirements. **Business Requirement 2**
 
     * Acceptance Criteria:
 
@@ -291,13 +292,13 @@ Predicts the expected sale price for:
 
       2- Documented rationale behind selected features.
 
-* **User Story** - As a data scientist, I want to split my dataset into train, validation, and test sets, so that I can evaluate models on unseen data. **Business Requirement 2**
+* **User Story** - As a data scientist, I want to split my dataset into train, and test sets, so that I can evaluate models on unseen data. **Business Requirement 2**
 
     * Acceptance Criteria:
 
       1- Split ratios and random seed are defined.
 
-      2- Train/test/validation subsets maintain integrity.
+      2- Train/test subsets maintain integrity.
 
 ### Epic - Model Training, Optimization and Validation
 
@@ -337,7 +338,7 @@ Predicts the expected sale price for:
 
     * Acceptance Criteria:
 
-      1- Visuals include bar plots and importance scores.
+      1- Visuals include distribution, correlation and parallel plots
 
       2- Key insights labeled clearly.
 
@@ -445,13 +446,19 @@ The sidebar menu provides access to the following dashboard pages:
 
     * Brief introduction to the project.
 
-    * Explanation of project terms and domain-specific jargon.
+    * Explanation of project key terms and concepts.
 
     * Links to full project documentation (e.g., the README).
 
     * Clear outline of the business requirements.
   
-  * **Correlation Insights**
+  * **Correlation Insights, BR1**
+
+    <details>
+    <summary>Correlation Insights - Page Image</summary>
+    <img src="docs\plots\dashboard\corr_dashboard.png">
+    </details>
+
 
     Display of top correlated variables with SalePrice, based on:
 
@@ -463,13 +470,47 @@ The sidebar menu provides access to the following dashboard pages:
 
     Visualizations:
 
-    * Heatmaps (threshold-masked for clarity)
+    * Distribution (left) and SalePrice correlation (Right)
 
     * Parallel Categories Plot showing interactions between multiple features and SalePrice
 
     * Descriptive interpretation of how these variables impact sale price.
 
-  * **Hypotheses**
+    <details>
+    <summary>Distribution and Correlation Plots</summary>
+
+    <p>
+      <img src="docs\plots\eda\1stFlrSF_numerical.png" alt="1stFlrSF Distribution and SalePrice correlation" width="600"/>
+    </p>
+    <p>
+      <img src="docs\plots\eda\GarageArea_numerical.png" alt="GarageArea Distribution and SalePrice correlation" width="600"/>
+    </p>
+    <p>
+      <img src="docs\plots\eda\GrLivArea_numerical.png" alt="GrLivArea Distribution and SalePrice correlation" width="600"/>
+    </p>
+    <p>
+      <img src="docs\plots\eda\OverallQual_barplot.png" alt="OverallQual Distribution and SalePrice correlation" width="600"/>
+    </p>
+    <p>
+      <img src="docs\plots\eda\TotalBsmtSF_numerical.png" alt="TotalBsmtSF Distribution and SalePrice correlation" width="600"/>
+    </p>
+    <p>
+      <img src="docs\plots\eda\YearBuilt_numerical.png" alt="YearBuilt Distribution and SalePrice correlation" width="600"/>
+    </p>
+
+    </details>
+
+    <details>
+    <summary>Parallel Plot</summary>
+    <img src="docs\plots\eda\parallel_plot.png">
+    </details>
+
+  * **Hypothesis, BR1**
+
+    <details>
+    <summary>Hypothesis Page - Image</summary>
+    <img src="docs\plots\dashboard\hypothesis_dashboard.png">
+    </details>
 
     Validation of three project hypotheses using:
 
@@ -481,37 +522,63 @@ The sidebar menu provides access to the following dashboard pages:
   
     Each hypothesis includes a conclusion section on whether it was supported or refuted by the data.
   
-  * **Technical Summary**
+  * **Technical Summary, BR2**
 
-  * Chosen Model: ExtraTreesRegressor selected based on best cross-validation R² score and low standard deviation.
+    <details>
+    <summary>Technical Summary - Page Image</summary>
+    <img src="docs\plots\dashboard\tech_summary_dashboard.png">
+    </details>
 
-  * Comparison of baseline models:
+    * Chosen Model: ExtraTreesRegressor selected based on best cross-validation R² score and low standard deviation.
 
-    * Lasso: 0.8147
+    * Comparison of baseline models:
 
-    * Ridge: 0.7762
+      * Lasso: 0.8147
 
-    * Random Forest: 0.7853
+      * Ridge: 0.7762
 
-  * Pipeline Overview:
+      * Random Forest: 0.7853
 
-    * Data preprocessing steps
+    * Pipeline Overview:
 
-    * Feature selection
+      <details>
+      <summary>Pipeline Flow</summary>
+      <img src="docs\plots\dashboard\pipeline_flow_image.png">
+      </details>
 
-    * Model training and evaluation
+      * Data preprocessing steps
 
-  * Visual representation of the pipeline flow.
+      * Feature selection
 
-  * Evaluation metrics:
+      * Model training and evaluation
 
-    * R² score on train and test sets
+    * Visual representation of the pipeline flow.
 
-    * MAE/MSE
+    * Evaluation metrics:
 
-  * Summary of top 5 most important features contributing to predictions.
+      * R² score on train and test sets
 
-  * **Inherited Houses Estimator**
+      * MAE/MSE
+
+      <details>
+      <summary>Model Evaluation Image</summary>
+      <img src="docs\plots\eda\evaluation_train_test_set.png">
+      </details>
+
+    * Summary of top 5 most important features contributing to predictions.
+
+    <details>
+    <summary>Feature Importance</summary>
+    <img src="outputs\ml_pipeline\predict_sale_price\v1\features_importance.png">
+    </details>
+
+
+  * **Inherited Houses Estimator, BR2**
+
+    <details>
+    <summary>Inherited Houses Estimator - Page Image</summary>
+    <img src="docs\plots\dashboard\inherited_dashboard.png">
+    </details>
 
     * Table input of the 4 inherited houses’ attributes.
 
@@ -519,7 +586,12 @@ The sidebar menu provides access to the following dashboard pages:
 
     * Clear summary of the total estimated sale value for the inherited portfolio.
   
-  * **House Price Predictions**
+  * **House Price Predictions, BR2**
+
+    <details>
+    <summary>House Price Predictions - Page Image</summary>
+    <img src="docs\plots\dashboard\price_estimator.png">
+    </details>
 
     * Live prediction tool to estimate the sale price of any house in Ames, Iowa.
 
@@ -610,14 +682,15 @@ The technologies used throughout the development are listed below:
   * [Warnings](https://docs.python.org/3/library/warnings.html) – Used to handle warning messages.
   * [Zipfile](https://docs.python.org/3/library/zipfile.html) – For extracting zipped files (used with Kaggle datasets).
 
-[Back to top](#table-of-contents)
-
 ### Other Technologies
 
 * [Git](https://git-scm.com/) - For version control
 * [GitHub](https://github.com/) - Code repository and GitHub projects was used as a Kanban board for Agile development
 * [Heroku](https://heroku.com) - For application deployment
 * [VSCode](https://code.visualstudio.com/) - IDE used for development
+* [Am I Responsive](https://ui.dev/amiresponsive) - To show the website image on a range of devices.
+
+[Back to top](#table-of-contents)
 
 ## Testing
 

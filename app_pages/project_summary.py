@@ -15,7 +15,7 @@ def project_summary_body():
 
     # Definitions of key terms used throughout the project
     st.info(
-        "## Project Terms & Jargon\n"
+        "## Key Terms and Concepts\n"
         "- **Client**: The fictional individual (Lydia Doe)"
         "who inherited four houses and seeks pricing insights.\n"
         "- **Property**: A house located in Ames, Iowa, "
