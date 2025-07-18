@@ -440,9 +440,19 @@ This Streamlit dashboard was designed to fulfill the business requirements defin
 
 **Navigation Structure**
 
+<details>
+<summary>Sidebar Navigation - Image</summary>
+<img src="docs\plots\dashboard\side_bar_dashboard.png">
+</details>
+
 The sidebar menu provides access to the following dashboard pages:
 
   * **Project Summary**
+    
+    <details>
+    <summary>Project Summary - Page Image</summary>
+    <img src="docs\plots\dashboard\summary_page.png">
+    </details>
 
     * Brief introduction to the project.
 
@@ -946,6 +956,22 @@ st.set_page_config(page_title="House Price Estimator", page_icon="🏘️", layo
 ```
 
 2. The duplicate call inside `multipage.py` was removed to ensure `set_page_config()` is executed only once, and at the appropriate time.
+
+---
+
+**Issue 3: Heroku Deployment Slug Size Exceeded 500 MB**
+
+**What Happened:**
+
+During deployment to Heroku, the slug size exceeded the 500 MB limit due to unnecessary or heavy packages included in the requirements.txt file. Heroku rejected the build because of this limitation.
+
+**Root Cause:**
+
+Some libraries like `numba`, `llvmlite`, `wordcloud`, `altair`, and `dacite` were installed in the virtual environment but were not actually used in the project. These packages are known to have large binary dependencies, which significantly increased the slug size.
+
+**Fix:**
+
+To resolve the issue, I removed all unused or non-essential packages from both the virtual environment and the requirements.txt file, keeping only the necessary dependencies for running the Streamlit dashboard. After this optimization, the slug size was reduced below 500 MB, and the deployment succeeded.**
 
 [Back to top](#table-of-contents)
 
